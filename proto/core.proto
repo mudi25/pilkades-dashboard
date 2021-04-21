@@ -1,0 +1,159 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package core;
+
+service CoreService{
+    rpc IsRegister (Query) returns (Query);
+
+    rpc FindSuara (Query) returns (Perhitungan);
+    rpc LokasiFindAll (google.protobuf.Empty) returns (ListLokasi);
+    rpc LokasiFind (Query) returns (ListLokasi);
+    rpc LokasiAdd (AddLokasi) returns (Lokasi);
+    rpc LokasiUpdate (UpdateLokasi) returns (google.protobuf.Empty);
+    rpc LokasiDelete (Query) returns (google.protobuf.Empty);
+
+    rpc TpsFindAll (google.protobuf.Empty) returns (ListTps);
+    rpc TpsFind (Query) returns (ListTps);
+    rpc MyTps (Query) returns (Tps);
+    rpc TpsAdd (AddTps) returns (Tps);
+    rpc TpsUpdate (UpdateTps) returns (google.protobuf.Empty);
+    rpc TpsUpdateSuara (UpdateSuaraTps) returns (google.protobuf.Empty);
+    rpc TpsUpdateImageUrlPlano (UpdateImageUrl) returns (Query);
+    rpc TpsUpdateImageUrlC1Kwk (UpdateImageUrl) returns (Query);
+    rpc TpsUpdateImageUrlHasil (UpdateImageUrl) returns (Query);
+    rpc TpsUpdateImageUrlNotaKeberantan (UpdateImageUrl) returns (Query);
+    rpc TpsSaveSuara (Query) returns (google.protobuf.Empty);
+    rpc TpsDelete (Query) returns (google.protobuf.Empty);
+
+
+    rpc UserFindAll (google.protobuf.Empty) returns (ListUser);
+    rpc UserFindSaksi (Query) returns (ListUser);
+    rpc UserAdd (AddUser) returns (User);
+    rpc UserDelete (Query) returns (google.protobuf.Empty);
+}
+
+enum UserRoles {
+    SUPER = 0;
+    VIEWERS = 1;
+    SAKSI = 2;
+}
+
+message Perhitungan {
+    int32 pemilihLaki = 1;
+    int32 pemilihPerempuan = 2;
+    int32 pemilihTotal = 3;
+    int32 penggunaHakPilihLaki = 4;
+    int32 penggunaHakPilihPerempuan = 5;
+    int32 penggunaHakPilihTotal = 6;
+    int32 nomorUrut1 = 7;
+    int32 nomorUrut2 = 9;
+    int32 nomorUrut3 = 10;
+    int32 nomorUrut4 = 11;
+    int32 suaraSah = 12;
+    int32 suaraTidakSah = 13;
+    int32 tpsMasuk = 14;
+    int32 totalTps = 15;
+}
+message Lokasi {
+    string id = 1;
+    string idParent = 2;
+    string nama = 3;
+}
+message AddLokasi {
+    string idParent = 1;
+    string nama = 2;
+}
+message UpdateLokasi {
+    string id = 1;
+    string nama = 2;
+}
+
+message ListLokasi {
+    repeated Lokasi items = 1;
+}
+
+
+message Query {
+    string value = 1;
+}
+message User {
+    string id = 1;
+    string idScope = 2;
+    string dispalyName = 3;
+    string phoneNumber = 4;
+    UserRoles roles = 5;
+}
+message AddUser {
+    string idScope = 1;
+    string dispalyName = 2;
+    string phoneNumber = 3;
+    UserRoles roles = 4;
+}
+message ListUser {
+    repeated User items = 1;
+}
+
+message Tps {
+    string id = 1;
+    string idKota = 2;
+    string idKecamatan = 3;
+    string idKelurahan = 4;
+    string nama = 5;
+    int32 pemilihLaki = 6;
+    int32 pemilihPerempuan = 7;
+    int32 pemilihTotal = 8;
+    int32 penggunaHakPilihLaki = 9;
+    int32 penggunaHakPilihPerempuan = 10;
+    int32 penggunaHakPilihTotal = 11;
+    int32 nomorUrut1 = 12;
+    int32 nomorUrut2 = 13;
+    int32 nomorUrut3 = 14;
+    int32 nomorUrut4 = 15;
+    int32 suaraSah = 16;
+    int32 suaraTidakSah = 17;
+    string catatan = 18;
+    bool isInput = 19;
+    string imageUrlPlano = 20;
+    string imageUrlC1Kwk = 21;
+    string imageUrlHasil = 22;
+    string imageUrlNotaKeberatan = 23;
+}
+message UpdateTps {
+    string id = 1;
+    string nama = 2;
+    int32 pemilihLaki = 3;
+    int32 pemilihPerempuan = 4;
+    int32 penggunaHakPilihLaki = 5;
+    int32 penggunaHakPilihPerempuan = 6;
+    int32 nomorUrut1 = 7;
+    int32 nomorUrut2 = 8;
+    int32 nomorUrut3 = 9;
+    int32 nomorUrut4 = 10;
+    string catatan  = 11;
+    bool isInput = 12;
+}
+message UpdateSuaraTps {
+    int32 penggunaHakPilihLaki = 1;
+    int32 penggunaHakPilihPerempuan = 2;
+    int32 nomorUrut1 = 3;
+    int32 nomorUrut2 = 4;
+    int32 nomorUrut3 = 5;
+    int32 nomorUrut4 = 6;
+    string catatan  = 7;
+}
+message AddTps {
+    string idKota = 1;
+    string idKecamatan = 2;
+    string idKelurahan = 3;
+    string nama = 4;
+    int32 pemilihLaki = 5;
+    int32 pemilihPerempuan = 6;
+}
+message UpdateImageUrl {
+    string id = 1;
+    string destination = 2;
+    string oldUrl = 3;
+}
+message ListTps {
+    repeated Tps items = 1;
+}
